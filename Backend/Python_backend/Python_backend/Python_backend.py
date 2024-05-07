@@ -67,3 +67,4 @@ if latitude == "None" and longitude == "None":
     print("[ipinfo]\tOnly accepts IP adresses")
 else:
     print(f"[ipinfo]\tLatitude: {latitude}\tLongitude: {longitude}")
+    #kkjkfkjasffkbjk
