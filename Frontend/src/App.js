@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
+import Header from "./components/Header.js"
 import Info from "./components/info.js"
 import Form from "./components/form.js"
 import Place from "./components/place.js"
 import Footer from "./components/Footer.js"
+import {Login} from "./Login";
+import {Register} from "./Register";
+
+const [currentForm, setCurrentForm] = useState('login');
+
+const toggleForm = {formName} => {
+  setCurrentForm(fromName)
+}
 
 const API_KEY = "e5832fe7fa724f039e8a644e5697a808";
 
@@ -37,21 +46,24 @@ class App extends React.Component {
     });
   }
 }
-
-  render(){
+render(){
     return (
-      <div>
-        <Info />
-        <Footer />
-        <Form placeIp={this.gettingPlace} />
-        <Place
-          ip={this.state.ip}
-          city={this.state.city}
-          country_name={this.state.country_name}
-          state_prov={this.state.state_prov}
-          hostname={this.state.hostname}
-          error={this.state.error}
-         />
+      <div className="App">
+      {
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm}/>
+      }
+      <Register />
+      <Header />
+      <Info />
+            <Footer />
+            <Form placeIp={this.gettingPlace} />
+            <Place
+              ip={this.state.ip}
+              city={this.state.city}
+              country_name={this.state.country_name}
+              state_prov={this.state.state_prov}
+              hostname={this.state.hostname}
+              error={this.state.error}/>
       </div>
     );
   }

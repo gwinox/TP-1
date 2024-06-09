@@ -1,0 +1,14 @@
+.footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--footer-background-color);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--footer-text-color);
+}

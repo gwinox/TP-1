@@ -1,0 +1,26 @@
+.main{
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 20px;
+  display: flex;
+  flex-dirction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-background-color);
+}
+
+.main h1{
+  margin-bottom: 32px;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--main-text-color);
+  text-align: center;
+}
+
+.main p{
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--main-text-color);
+}
