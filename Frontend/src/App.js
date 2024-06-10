@@ -3,6 +3,7 @@ import Info from "./components/info.js"
 import Form from "./components/form.js"
 import Place from "./components/place.js"
 import Footer from "./components/Footer.js"
+import Button from "./components/Button.js"
 
 const API_KEY = "e5832fe7fa724f039e8a644e5697a808";
 
@@ -43,6 +44,7 @@ class App extends React.Component {
       <div>
         <Info />
         <Footer />
+        <Button />
         <Form placeIp={this.gettingPlace} />
         <Place
           ip={this.state.ip}
