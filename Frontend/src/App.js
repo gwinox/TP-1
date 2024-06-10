@@ -6,6 +6,7 @@ import Info from "./components/info.js"
 import Form from "./components/form.js"
 import Place from "./components/place.js"
 import Footer from "./components/Footer.js"
+<<<<<<< HEAD
 import {Login} from "./Login";
 import {Register} from "./Register";
 import "./App.css"
@@ -73,6 +74,8 @@ function App() {
 
   return <App />;
 import Button from "./components/Button.js"
+=======
+>>>>>>> parent of c36d55ee (Button)
 
 const API_KEY = "e5832fe7fa724f039e8a644e5697a808";
 
@@ -113,7 +116,6 @@ class App extends React.Component {
       <div>
         <Info />
         <Footer />
-        <Button />
         <Form placeIp={this.gettingPlace} />
         <Place
           ip={this.state.ip}
