@@ -15,10 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import re_path , include
 from backend import views
+from backend.views import *
+
+#from django.conf.urls import url
+#Был path, а стал re_path, тк django.conf.urls.url() was deprecated in Django 3.0, and is removed in Django 4.0+.
 
 urlpatterns = [
-    path('', views.index),
-    path('about', views.about),
+    re_path('', ReactView.as_view(), name="anything"),
+    re_path('about', views.about),
 ]

@@ -3,6 +3,8 @@ import Info from "./components/info.js"
 import Form from "./components/form.js"
 import Place from "./components/place.js"
 import Footer from "./components/Footer.js"
+import AxiosInstance from "./components/Axios.js";
+import axios from 'axios'
 
 const API_KEY = "e5832fe7fa724f039e8a644e5697a808";
 
@@ -16,7 +18,37 @@ class App extends React.Component {
     state_prov: undefined,
     hostname: undefined,
     error: undefined,
+    details: [],
   }
+
+  componentDidMount() 
+  {
+    let data;
+    axios.get('http://localhost:8000')
+      .then(res => {
+        data = res.data;
+        this.setState({
+          details: data
+        });
+      })
+      .catch(err => { })
+  }
+
+  // render() {
+  //   return (
+  //     <div>
+  //       <header>Data from Django</header>
+  //       <hr></hr>
+  //       {this.state.details.map((output, id)=> (
+  //         <div key={id}>
+  //           <div>
+  //             <h2>{output.ip}</h2>
+  //           </div>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   )
+  // }
 
   gettingPlace = async (e) => {
     e.preventDefault();
@@ -25,6 +57,7 @@ class App extends React.Component {
     fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${Ip}&appid`);
     const data = await api_url.json();
     console.log(data);
+
 
     if(Ip){
     this.setState({
@@ -41,9 +74,19 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Info />
-        <Footer />
-        <Form placeIp={this.gettingPlace} />
+        <header>Data from Django</header>
+        <hr></hr>
+        {this.state.details.map((output, id)=> (
+          <div key={id}>
+            <div>
+              <h2>{output.ip}</h2>
+            </div>
+          </div>
+        ))}
+
+        <Info/>
+        <Footer/>
+        <Form placeIp={this.gettingPlace}/>
         <Place
           ip={this.state.ip}
           city={this.state.city}

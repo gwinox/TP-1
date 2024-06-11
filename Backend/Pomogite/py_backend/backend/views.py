@@ -2,8 +2,26 @@ import sqlite3
 from django.http import HttpResponse
 from multiprocessing import Value
 import requests
-import json
 import ipaddress 
+
+from rest_framework.views import APIView
+from .models import *
+from .serializer import *
+from rest_framework.response import Response
+from django.shortcuts import render
+
+class ReactView(APIView):
+    def get(self, request):
+        output = [{"ip": output.ip} 
+                  for output in React.objects.all()]
+        return Response(output)
+    
+    def post(self, request):
+        serializer = ReactSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
 
 def appendData(ip, lat1, lon1, lat2, lon2, lat3, lon3):
     connection = sqlite3.connect("C:\django\history.db")
