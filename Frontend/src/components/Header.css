@@ -8,7 +8,7 @@
 .tab {
     margin: 0 0 -1px;
     padding: 20px 25px;
-    color: gray;
+    color: pink;
     font-weight: 700;
     font-size: 20px;
     border-radius: 4px;
@@ -16,7 +16,7 @@
 }
 
 .react-tabs__tab--selected {
-    background: #209cee;
-    color: white !important;
+    background: #C8A2C8;
+    color: Lavender !important;
     border: 1px solid #fff;
  }
