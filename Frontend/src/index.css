@@ -1,5 +1,14 @@
 body {
   margin: 0;
+<html>
+ <head>>
+ </head>
+ <body bgcolor= #fa8e47 text= #fff>
+ </body>
+</html
+body {
+  width: 1280px;
+  margin: 50px auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -23,4 +32,13 @@ Info .logo {
    height: 500px;
    background-size: cover;
    background-position: center center;
+}
+html.light{
+  --color-bg: #ffffff;
+  --color-text: #000000;
+}
+
+html.dark{
+  --color-bg: #000000;
+  --color-text: #ffffff;
 }
