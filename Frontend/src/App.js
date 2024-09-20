@@ -1,103 +1,57 @@
-import React from "react";
-import Info from "./components/info.js"
-import Form from "./components/form.js"
-import Place from "./components/place.js"
-import Footer from "./components/Footer.js"
-import AxiosInstance from "./components/Axios.js";
-import axios from 'axios'
+import React, { useState } from 'react';
+import "./App.css";
+import SignUp from "./components/auth/SignUp"; 
+import SignIn from "./components/auth/SignIn"; 
+import AuthDetails from "./components/auth/AuthDetails"; 
+import HomePage from "./pages/HomePage";
+import axios from 'axios';
 
-const API_KEY = "e5832fe7fa724f039e8a644e5697a808";
+function App() {
 
-class App extends React.Component {
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
-  state = {
-    temp: undefined,
-    ip: undefined,
-    city: undefined,
-    country_name: undefined,
-    state_prov: undefined,
-    hostname: undefined,
-    error: undefined,
-    details: [],
-  }
-
-  componentDidMount() 
-  {
-    let data;
-    axios.get('http://localhost:8000')
-      .then(res => {
-        data = res.data;
-        this.setState({
-          details: data
-        });
-      })
-      .catch(err => { })
-  }
-
-  // render() {
-  //   return (
-  //     <div>
-  //       <header>Data from Django</header>
-  //       <hr></hr>
-  //       {this.state.details.map((output, id)=> (
-  //         <div key={id}>
-  //           <div>
-  //             <h2>{output.ip}</h2>
-  //           </div>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   )
-  // }
-
-  gettingPlace = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const Ip = e.target.elements.ip.value;
-    const api_url = await
-    fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${Ip}&appid`);
-    const data = await api_url.json();
-    console.log(data);
 
+    try {
+      const response = await axios.post('http://localhost:8000/iplocation/iplocation/', { input_data: input }); // {input_data:input}
+      setResult(response.data);
+      setError(null);  // Clear previous errors
+    } 
+    catch (err) {
+      setError('Could not process the IP address. Make sure it is a valid IP address or domain name.');
+      setResult(null);  // Clear previous results
+    }
+  };
 
-    if(Ip){
-    this.setState({
-      ip: data.ip,
-      city: data.city,
-      country_name: data.country_name,
-      state_prov: data.state_prov,
-      hostname: data.hostname,
-      error:""
-    });
-  }
-}
-
-  render(){
-    return (
-      <div>
-        <header>Data from Django</header>
-        <hr></hr>
-        {this.state.details.map((output, id)=> (
-          <div key={id}>
-            <div>
-              <h2>{output.ip}</h2>
-            </div>
-          </div>
-        ))}
-
-        <Info/>
-        <Footer/>
-        <Form placeIp={this.gettingPlace}/>
-        <Place
-          ip={this.state.ip}
-          city={this.state.city}
-          country_name={this.state.country_name}
-          state_prov={this.state.state_prov}
-          hostname={this.state.hostname}
-          error={this.state.error}
-         />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <SignUp />
+      <SignIn />
+      <AuthDetails />
+      <HomePage />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter IP address or domain name"
+        />
+        <button type="submit">Search</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {result && (
+        <div class="source">
+          <p>Date: {new Date(result.query_date).toLocaleString()}</p>
+          <p>Source 1: {result.lat1}, {result.lon1} </p>
+          <p>Source 2: {result.lat2}, {result.lon2} </p>
+          <p>Source 3: {result.lat3}, {result.lon3} </p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default App;
